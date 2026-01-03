@@ -1,0 +1,38 @@
+data:
+  batch_size: 16
+  image_size: 256
+  num_workers: 4
+  paired: true
+  root_dir: lol_dataset
+experiment_dir: experiments/hybrid_retinex_net
+loss:
+  lambda_color: 0.5
+  lambda_exposure: 0.5
+  lambda_illum: 0.5
+  lambda_perceptual: 0.1
+  lambda_recon: 1.0
+  lambda_spatial: 1.0
+  target_exposure: 0.6
+  use_perceptual: false
+  use_reconstruction: true
+model:
+  base_channels: 48
+  name: HybridRetinexNet
+  num_residual_blocks: 4
+  use_retinex_input: false
+optimizer:
+  beta1: 0.9
+  beta2: 0.999
+  lr: 0.001
+  name: Adam
+  weight_decay: 0.0001
+scheduler:
+  T_max: 25
+  eta_min: 1.0e-06
+  name: CosineAnnealingLR
+seed: 42
+training:
+  epochs: 25
+  grad_clip: 0.5
+  log_interval: 10
+  save_interval: 10

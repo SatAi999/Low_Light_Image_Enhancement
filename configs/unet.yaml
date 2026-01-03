@@ -1,0 +1,42 @@
+# Configuration for Lightweight U-Net
+
+experiment_dir: 'experiments/unet'
+seed: 42
+
+model:
+  name: 'LightweightUNet'
+  base_features: 32
+
+data:
+  root_dir: 'lol_dataset'
+  batch_size: 8
+  image_size: 256
+  num_workers: 4
+  paired: true
+
+loss:
+  use_reconstruction: true
+  use_perceptual: true
+  lambda_recon: 1.0
+  lambda_perceptual: 0.1
+  lambda_exposure: 0.5
+  lambda_color: 2.0
+  lambda_spatial: 5.0
+  lambda_illum: 0.0
+  target_exposure: 0.6
+
+optimizer:
+  name: 'AdamW'
+  lr: 0.0002
+  weight_decay: 0.0001
+
+scheduler:
+  name: 'CosineAnnealingLR'
+  T_max: 100
+  eta_min: 0.000001
+
+training:
+  epochs: 100
+  grad_clip: 0.5
+  log_interval: 10
+  save_interval: 10

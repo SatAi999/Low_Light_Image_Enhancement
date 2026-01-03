@@ -1,0 +1,53 @@
+# Configuration for Hybrid Retinex + CNN Model Training
+
+# Experiment settings
+experiment_dir: 'experiments/hybrid_retinex_net'
+seed: 42
+
+# Model configuration
+model:
+  name: 'HybridRetinexNet'  # Options: LightweightUNet, DCENet, EnhancementCNN, HybridRetinexNet
+  use_retinex_input: false   # Disable MSR preprocessing - train pure CNN first
+  base_channels: 48
+  num_residual_blocks: 4
+
+# Data configuration
+data:
+  root_dir: 'lol_dataset'
+  batch_size: 16
+  image_size: 256
+  num_workers: 4
+  paired: true  # Use paired dataset (with ground truth)
+
+# Loss configuration
+loss:
+  use_reconstruction: true
+  use_perceptual: false  # Set to true for better quality (slower training)
+  lambda_recon: 1.0
+  lambda_perceptual: 0.1
+  lambda_exposure: 0.5
+  lambda_color: 0.5
+  lambda_spatial: 1.0
+  lambda_illum: 0.5
+  target_exposure: 0.6
+
+# Optimizer configuration
+optimizer:
+  name: 'Adam'
+  lr: 0.001
+  beta1: 0.9
+  beta2: 0.999
+  weight_decay: 0.0001
+
+# Scheduler configuration
+scheduler:
+  name: 'CosineAnnealingLR'
+  T_max: 25
+  eta_min: 0.000001
+
+# Training configuration
+training:
+  epochs: 25
+  grad_clip: 0.5
+  log_interval: 10
+  save_interval: 10

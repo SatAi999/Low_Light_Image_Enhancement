@@ -1,0 +1,43 @@
+# Configuration for Zero-DCE Style Self-Supervised Training
+
+experiment_dir: 'experiments/dce_net'
+seed: 42
+
+model:
+  name: 'DCENet'
+  num_iterations: 8
+  base_channels: 32
+
+data:
+  root_dir: 'lol_dataset'
+  batch_size: 8
+  image_size: 256
+  num_workers: 4
+  paired: false  # Self-supervised: no ground truth needed
+
+loss:
+  use_reconstruction: false  # Zero-reference learning
+  use_perceptual: false
+  lambda_recon: 0.0
+  lambda_perceptual: 0.0
+  lambda_exposure: 10.0
+  lambda_color: 5.0
+  lambda_spatial: 200.0
+  lambda_illum: 0.0
+  target_exposure: 0.6
+
+optimizer:
+  name: 'Adam'
+  lr: 0.0001
+  weight_decay: 0.0001
+
+scheduler:
+  name: 'StepLR'
+  step_size: 30
+  gamma: 0.5
+
+training:
+  epochs: 100
+  grad_clip: 1.0
+  log_interval: 10
+  save_interval: 10

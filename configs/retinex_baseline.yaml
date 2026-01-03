@@ -1,0 +1,53 @@
+# Configuration for Retinex-Only Enhancement (No Deep Learning)
+
+experiment_dir: 'experiments/retinex_baseline'
+seed: 42
+
+# Model configuration (not used for Retinex-only, but required for compatibility)
+model:
+  name: 'EnhancementCNN'
+  base_channels: 64
+  num_residual_blocks: 6
+
+# Data configuration
+data:
+  root_dir: 'lol_dataset'
+  batch_size: 1
+  image_size: 256
+  num_workers: 0
+  paired: true
+
+# Retinex specific settings (used in evaluation)
+retinex:
+  method: 'MSR'  # 'SSR' or 'MSR'
+  scales: [15, 80, 250]  # Gaussian scales
+  gamma: 1.2
+  gain: 1.0
+  offset: 0.0
+
+# Loss configuration (not used for classical methods)
+loss:
+  use_reconstruction: false
+  use_perceptual: false
+  lambda_recon: 0.0
+  lambda_perceptual: 0.0
+  lambda_exposure: 0.0
+  lambda_color: 0.0
+  lambda_spatial: 0.0
+  lambda_illum: 0.0
+
+# Optimizer (not used)
+optimizer:
+  name: 'Adam'
+  lr: 0.0001
+
+# Scheduler (not used)
+scheduler:
+  name: 'None'
+
+# Training (not used for classical methods)
+training:
+  epochs: 0
+  grad_clip: 0.0
+  log_interval: 10
+  save_interval: 10
